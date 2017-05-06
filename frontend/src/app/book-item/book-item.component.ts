@@ -4,11 +4,11 @@ import {BookModel} from "../models/book-model";
 @Component({
   selector: 'book-item',
   template: `
-    <section class="product product-list-item">
+    <section class="book book-list-item">
       <div class="row">
         <div class="col-xs-3">
           <!-- hardcode url its temporary, - will be changed after integration with backend;  -->
-          <img [src]="book.thumbnail">
+          <img class="img-thumbnail" [src]="book.thumbnail">
         </div>
         <div class="col-xs-6">
           <div class="info">Some info</div>
@@ -16,7 +16,7 @@ import {BookModel} from "../models/book-model";
         <div class="col-xs-3">
         </div>
       </div>
-    </section><!-- /.product-list-item -->
+    </section><!-- /.book-list-item -->
   `,
   styleUrls: ['./book-item.component.scss']
 })

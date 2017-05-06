@@ -1,3 +1,41 @@
-.active-link{
+.active-link {
 
+}
+
+.bullet-center {
+  text-align: center;
+}
+
+li a {
+  display: block;
+}
+
+li {
+  padding: 0;
+}
+
+li a.logo {
+  display: block;
+  padding: 2em;
+}
+
+.logo-icon {
+  width: 80%;
+  height: 80%;
+}
+
+.gi-2x {
+  font-size: 2em;
+}
+
+.gi-3x {
+  font-size: 3em;
+}
+
+.gi-4x {
+  font-size: 4em;
+}
+
+.gi-5x {
+  font-size: 5em;
 }
