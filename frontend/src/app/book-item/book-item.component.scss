@@ -1,0 +1,25 @@
+//.book {
+//  padding: $padding-size-sm 0;
+//  &:hover {
+//    transition: background 0.3s;
+//    background: $grey-lighten;
+//  }
+//
+//  &__image {
+//    text-align: center;
+//  }
+//  &__img {
+//    max-width: $width-img-thumbnail;
+//  }
+//  &__name {
+//    padding: $padding-size-xs 0;
+//    @include title('group', 'none', $blue);
+//  }
+//  &__price {
+//    @include title('group', 'none', $black, $font-weight-bolder);
+//  }
+//  &__btn {
+//    margin-top: $margin-size-xxl;
+//    text-align: center;
+//  }
+//}
