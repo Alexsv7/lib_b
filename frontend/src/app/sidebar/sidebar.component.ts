@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FilePickerComponent } from '../file-picker/file-picker.component';
 
 @Component({
   selector: 'sidebar',

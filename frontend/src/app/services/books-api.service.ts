@@ -8,6 +8,7 @@ import 'rxjs/Rx';
 export class BooksApiService {
 
   private BOOKS_API = '';
+  private BOOK_BY_ID_API ='';
 
   private static handleError(error: Response | any) {
     let errMsg: string,
@@ -34,6 +35,8 @@ export class BooksApiService {
   constructor(private http: Http) {
     // ${apiRouteConfig.apiEndpoint}
     this.BOOKS_API = `http://localhost:3000/api/v1/books`;
+    this.BOOK_BY_ID_API = `http://localhost:3000/api/v1/book/`;
+
   }
 
   getBooks(): Observable<BookModel[]> {
@@ -49,4 +52,13 @@ export class BooksApiService {
     .catch(BooksApiService.handleError);
   }
 
+  getBooksById(id:string): Observable<BookModel> {
+    return this.http.get(this.BOOK_BY_ID_API+id)
+      .map(BooksApiService.extractData)
+    // .filter((book: BookModel)=>{
+    //           return book._id == id;
+    //       })
+
+      .catch(BooksApiService.handleError);
+  }
 }

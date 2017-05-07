@@ -15,8 +15,9 @@ export class BooksService {
     return this.booksApiService.getBooks();
   };
 
-  // getContractsByCustomerId(id): Observable<BookModel[]> {
-  //   return this.contractApiService.getContractsByCustomerId(id);
-  // };
+  getBooksById(id:string){
+    return this.booksApiService.getBooksById(id);
+
+  }
 
 }
