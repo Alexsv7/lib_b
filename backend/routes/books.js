@@ -4,6 +4,7 @@ var mongojs = require('mongojs');
 var bodyParser = require("body-parser");
 var multer = require("multer");
 var db = mongojs('mongodb://alexsv7:28081997sv@ds127341.mlab.com:27341/lib_bip', ['books']);
+var app = express();
 //
 // router.use(bodyParser.json());
 // router.use(bodyParser.urlencoded({ extended: true }));
@@ -13,6 +14,23 @@ var db = mongojs('mongodb://alexsv7:28081997sv@ds127341.mlab.com:27341/lib_bip',
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     next();
 // });
+
+class BookModel {
+    constructor(name,author,src,isPersonal,thumbnail){
+        this.name = name;
+        this.author = author;
+        this.src = src;
+        this.isPersonal = isPersonal;
+        this.thumbnail = thumbnail;
+    }
+    // _id: string;
+    // name:string;
+    // author:string;
+    // src:string;
+    // isPersonal:boolean;
+    // thumbnail:string;
+}
+
 
 router.get('/books', function (req, res, next)  {
     db.books.find(function(error, books) {
@@ -100,16 +118,55 @@ router.delete('/book/:id', function (req, res, next) {
     });
 });
 
-router.post("/upload", multer({dest: "./uploads/"}).array("uploads", 12), function (req, res) {
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+// router.post("/upload", multer({dest: "./uploads/"}).array("uploads", 12), function (req, res) {
+//     // Website you wish to allow to connect
+//     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+//
+//     // Request methods you wish to allow
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//
+//     // Request headers you wish to allow
+//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//     res.send(req.files);
+// });
 
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.send(req.files);
+var storage = multer.diskStorage({ //multers disk storage settings
+    destination: function (req, file, cb) {
+        cb(null, './uploads/');
+    },
+    filename: function (req, file, cb) {
+        var datetimestamp = Date.now();
+        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
+    }
 });
+
+var upload = multer({ //multer settings
+    storage: storage
+}).single('file');
+
+/** API path that will upload the files */
+router.post('/upload', function(req, res) {
+    upload(req,res,function(err){
+        console.log(req.file);
+        if(err){
+            res.json({error_code:1,err_desc:err});
+            return;
+        }else {
+            // res.json({error_code: 0, err_desc: null});
+            var book = new BookModel(req.file.originalname, '','../../../../backend/'+req.file.path,true,"/assets/images/default.jpg");
+
+
+            db.books.save(book, function (err, result) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.json(result);
+                }
+            });
+        }
+    });
+});
+
+
 
 module.exports = router;
