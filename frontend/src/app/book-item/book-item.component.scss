@@ -16,10 +16,26 @@
     margin-top: $margin-size-xxl;
     text-align: center;
   }
+
+  &-list-item{
+    position: relative;
+  }
 }
 
 .img-thumbnail{
   width:100%;
   height: 100%;
   object-fit: contain;
+}
+
+.delete{
+  position: absolute;
+  bottom: 25%;
+  right: 10%;
+}
+
+.read{
+  position: absolute;
+  bottom: 5%;
+  left: 0;
 }

@@ -34,7 +34,12 @@ let appRoutes: Routes = [
   {
     path: 'books/:id',
     component: BookViewComponent
+  },
+  {
+    path: 'add-book',
+    component: FileUploaderComponent
   }
+
 
 ];
 

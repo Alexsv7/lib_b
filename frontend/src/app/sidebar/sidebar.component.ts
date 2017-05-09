@@ -9,12 +9,12 @@ import {Component, OnInit} from '@angular/core';
       <li class="bullet-center" role="presentation"><a routerLink="books">My books</a></li>
       <li class="bullet-center" role="presentation"><a routerLink="wishlist">Wishlist</a></li>
       <li class="bullet-center">
-        <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button>
+        <button type="button" class="btn btn-success"><a routerLink="add-book"><i class="glyphicon glyphicon-plus"></i></a></button>
       </li>
       <!--<li><file-picker></file-picker></li>-->
-      <li>
-        <file-uploader></file-uploader>
-      </li>
+      <!--<li>-->
+        <!--<file-uploader></file-uploader>-->
+      <!--</li>-->
     </ul>`,
   styleUrls: ['./sidebar.component.css']
 })

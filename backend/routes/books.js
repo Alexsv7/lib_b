@@ -5,15 +5,6 @@ var bodyParser = require("body-parser");
 var multer = require("multer");
 var db = mongojs('mongodb://alexsv7:28081997sv@ds127341.mlab.com:27341/lib_bip', ['books']);
 var app = express();
-//
-// router.use(bodyParser.json());
-// router.use(bodyParser.urlencoded({ extended: true }));
-
-// router.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
 
 class BookModel {
     constructor(name,author,src,isPersonal,thumbnail){
@@ -23,12 +14,6 @@ class BookModel {
         this.isPersonal = isPersonal;
         this.thumbnail = thumbnail;
     }
-    // _id: string;
-    // name:string;
-    // author:string;
-    // src:string;
-    // isPersonal:boolean;
-    // thumbnail:string;
 }
 
 
@@ -132,7 +117,8 @@ router.delete('/book/:id', function (req, res, next) {
 
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {
-        cb(null, './uploads/');
+        cb(null, '../frontend/src/assets/files');
+        // /Users/alex/bip_lib/PersonalLibrary/frontend/src/assets/files
     },
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();
@@ -152,9 +138,7 @@ router.post('/upload', function(req, res) {
             res.json({error_code:1,err_desc:err});
             return;
         }else {
-            // res.json({error_code: 0, err_desc: null});
-            var book = new BookModel(req.file.originalname, '','../../../../backend/'+req.file.path,true,"/assets/images/default.jpg");
-
+            var book = new BookModel(req.file.originalname, '',"/assets/files/"+req.file.filename,false,"/assets/images/default.jpg");
 
             db.books.save(book, function (err, result) {
                 if (err) {
@@ -166,7 +150,6 @@ router.post('/upload', function(req, res) {
         }
     });
 });
-
 
 
 module.exports = router;

@@ -12,7 +12,7 @@ app.all("/api/*", function(req, res, next) {
 
     res.header('Access-Control-Allow-Credentials', true);
     res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
-    res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
     return next();
 });
 

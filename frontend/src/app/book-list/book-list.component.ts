@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import {BooksService} from "../services/books.service";
 import {BookModel} from "../models/book-model";
 
@@ -6,7 +6,7 @@ import {BookModel} from "../models/book-model";
   selector: 'book-list',
   template: `
     <section class="books__list" *ngIf="books">
-      <book-item *ngFor="let book of books" [book]="book"></book-item>
+      <book-item *ngFor="let book of books" [book]="book" (onDeleted)="onDeleted($event)"></book-item>
     </section>
   `,
 
@@ -15,7 +15,7 @@ import {BookModel} from "../models/book-model";
 
 })
 
-export class BooksComponent implements OnInit {
+export class BooksComponent implements OnInit,OnChanges {
 
   books: BookModel[] = [];
 
@@ -23,6 +23,14 @@ export class BooksComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getBooksList();
+  }
+
+  ngOnChanges(){
+    this.getBooksList();
+  }
+
+  onDeleted(){
     this.getBooksList();
   }
 

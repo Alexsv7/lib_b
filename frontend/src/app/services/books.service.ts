@@ -17,7 +17,10 @@ export class BooksService {
 
   getBooksById(id:string){
     return this.booksApiService.getBooksById(id);
+  }
 
+  deleteBook(id:string){
+    return this.booksApiService.deleteBook(id);
   }
 
 }
